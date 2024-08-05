@@ -5,39 +5,36 @@ import Button from './button';
 export default function Items() {
     const labels = ["Page 1", "Page 2", "Page 3", "Page 4"];
 
-    const [isHoveredOnAll, setIsHoveredOnAll] = useState(false);
-    const [isClickedOnAll, setIsClickedOnAll] = useState(false);
-    const [isCheckedAll, setIsCheckedOnAll] = useState(false);
+    const [hoveredOnAll, setHoveredOnAll] = useState(false);
+    const [clickedAll, setClickedAll] = useState(false);
+    const [checkedAll, setCheckedAll] = useState(false);
 
-    const [hoveredIndex, setIsHoveredIndex] = useState(null);
+    const [hoveredIndex, setHoveredIndex] = useState(null);
     const [clickedItems, setClickedItems] = useState(Array(labels.length).fill(false));
     const [checkedIndex, setCheckedIndex] = useState(null);
 
     const [isButtonClicked, setButtonClicked] = useState(false);
 
-    const handleMouseEnterOnAll = () => setIsHoveredOnAll(true);
-    const handleMouseLeaveOnAll = () => setIsHoveredOnAll(false);
+    const handleMouseEnterOnAll = () => setHoveredOnAll(true);
+    const handleMouseLeaveOnAll = () => setHoveredOnAll(false);
     const handleClickOnAll = () => {
-        setIsCheckedOnAll(true);
+        setCheckedAll(true);
         
-        setIsClickedOnAll(!isClickedOnAll);
+        setClickedAll(!clickedAll);
         
-        setClickedItems((isClickedOnAll === false ? Array(labels.length).fill(true) : Array(labels.length).fill(false)));
+        setClickedItems((clickedAll === false ? Array(labels.length).fill(true) : Array(labels.length).fill(false)));
         
         setTimeout(() => {
-            setIsCheckedOnAll(false);
+            setCheckedAll(false);
         }, 200);
 
     }
 
     const handleMouseEnter = (index) => {
-        console.log("mouse hovered over: " + index);
-        setIsHoveredIndex(index);
+        setHoveredIndex(index);
     }
-    const handleMouseLeave = () => setIsHoveredIndex(null);
+    const handleMouseLeave = () => setHoveredIndex(null);
     const handleClick = (index) => {
-        console.log("mouse clicked on:" + index);
-
         setCheckedIndex(index);
 
         const newClickedItems = [...clickedItems];
@@ -47,21 +44,16 @@ export default function Items() {
         setTimeout(() => {
             setCheckedIndex(null);
         }, 200);
-
-        
-
     };
 
     useEffect(() => {
         const areAllItemsTrue = clickedItems.every(item => item === true);
-        setIsClickedOnAll(areAllItemsTrue);
+        setClickedAll(areAllItemsTrue);
         console.log("Are all items true:", areAllItemsTrue);
     }, [clickedItems]);
 
-
     const handleButtonClick = () => setButtonClicked(true);
     const handleButtonReleased = () => setButtonClicked(false);
-
 
     return (
         <div className="flex flex-col space-y-4  cursor-pointer">
@@ -72,21 +64,20 @@ export default function Items() {
                 onClick={handleClickOnAll}
             >
                 <label className="cursor-pointer">All Pages</label>
-                <div className={`${isCheckedAll ? 'border-4 border-light-blue rounded-xl opacity-40' : 'border-4 border-white rounded-xl'} `}>
+                <div className={`${checkedAll ? 'border-4 border-light-blue rounded-xl opacity-40' : 'border-4 border-white rounded-xl'} `}>
                     <label
                         className={`w-6 h-6 border border-grey rounded-md shadow flex items-center justify-center cursor-pointer 
-                                ${isHoveredOnAll && !isClickedOnAll ? ' bg-white' : ''} 
-                                ${isClickedOnAll ? 'bg-blue border-none' : ''}
-                                ${isHoveredOnAll && isClickedOnAll ? 'bg-light-blue border-none' : ''}
+                                ${hoveredOnAll && !clickedAll ? ' bg-white' : ''} 
+                                ${clickedAll ? 'bg-blue border-none' : ''}
+                                ${hoveredOnAll && clickedAll ? 'bg-light-blue border-none' : ''}
                             `}
                     >
-                        {(isHoveredOnAll || isClickedOnAll) && (
-                            <svg xmlns="http://www.w3.org/2000/svg" className={`w-6 h-6 
-                                ${isHoveredOnAll && !isClickedOnAll ? 'text-grey' : ''} 
-                                ${isClickedOnAll ? 'text-white' : ''}
-                                ${isCheckedAll ? 'text-dark-grey' : ''}
+                        {(hoveredOnAll || clickedAll) && (
+                            <svg xmlns="http://www.w3.org/2000/svg" className={`w-7 h-7 
+                                ${hoveredOnAll && !clickedAll ? 'text-grey' : ''} 
+                                ${clickedAll ? 'text-white' : ''}
+                                ${checkedAll ? 'text-dark-grey' : ''}
                                 `} 
-                            
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 5L19 8" />
                             </svg>
