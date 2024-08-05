@@ -1,12 +1,15 @@
 import './App.css';
+import React from 'react';
+import Items from './components/items';
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+    <div className="font-montserrat center max-h-full">
+      <div className="card flex flex-col items-center max-w-lg p-6 mt-10 rounded-lg">
+        <Items />
+      </div>
     </div>
+
   );
 }
 
