@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function Button({ onMouseDown, onMouseUp }) {
     const [isClicked, setIsClicked] = useState(false);
@@ -30,7 +30,7 @@ export default function Button({ onMouseDown, onMouseUp }) {
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             className={`block text-black py-3 px-4 rounded w-full mt-10 
-                ${isClicked && isHovered ? 'bg-orange' : 'bg-orange'} 
+                ${isClicked ? 'bg-orange' : ''} 
                 ${isHovered && !isClicked ? 'bg-light-orange' : 'bg-orange'}
                 `}>
             Done
